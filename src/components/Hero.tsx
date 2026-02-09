@@ -7,7 +7,7 @@ export function Hero() {
           <br />
           플레이 중 필요한 계산을 한 곳에서 빠르게 확인하세요.
           <br />
-          문의 : 27섭 27ST 클랜 DropTheBeat
+          문의 : 27섭 27TH 클랜 DropTheBeat
         </p>
       </div>
     </section>

@@ -21,7 +21,7 @@ function App() {
       </main>
 
       <footer className="app-footer">
-        <p>포지마스터 27ST 클랜용 계산기 · 개인 팬메이드 도구</p>
+        <p>포지마스터 27TH 클랜용 계산기 · 개인 팬메이드 도구</p>
       </footer>
     </div>
   )
