@@ -809,3 +809,67 @@
   color: #9ca3af;
   margin-left: 0.25rem;
 }
+
+/* 리그전 시뮬레이션 */
+.league-result-card {
+  margin-top: 1.3rem;
+}
+
+.league-vs-grid {
+  margin-top: 0.8rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.2rem;
+}
+
+@media (min-width: 720px) {
+  .league-vs-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.league-metrics {
+  list-style: none;
+  padding: 0;
+  margin: 0.2rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.league-metrics li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.league-metrics span {
+  color: #9ca3af;
+}
+
+.league-metrics strong {
+  font-weight: 600;
+}
+
+.league-summary {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(55, 65, 81, 0.8);
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.league-winner {
+  margin: 0;
+  font-weight: 600;
+  color: #a5b4fc;
+}
+
+.league-times {
+  margin: 0;
+  color: #e5e7eb;
+}

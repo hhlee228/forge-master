@@ -24,7 +24,7 @@ export type ForgeStepWithReduction = ForgeUpgradeRow & {
   timeSec: number
 }
 
-export type TabId = 'forge' | 'heal'
+export type TabId = 'forge' | 'heal' | 'league'
 
 export type RegenHistoryEntry = {
   regenPercent: number

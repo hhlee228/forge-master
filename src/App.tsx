@@ -5,6 +5,7 @@ import { AppHeader } from './components/AppHeader'
 import { Hero } from './components/Hero'
 import { ForgeSection } from './components/forge/ForgeSection'
 import { HealSection } from './components/heal/HealSection'
+import { LeagueSection } from './components/league/LeagueSection'
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabId>('forge')
@@ -18,6 +19,7 @@ function App() {
 
         {activeTab === 'forge' && <ForgeSection />}
         {activeTab === 'heal' && <HealSection />}
+        {activeTab === 'league' && <LeagueSection />}
       </main>
 
       <footer className="app-footer">

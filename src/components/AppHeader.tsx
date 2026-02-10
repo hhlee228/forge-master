@@ -34,6 +34,15 @@ export function AppHeader({ activeTab, onTabChange }: AppHeaderProps) {
         >
           초당 회복력 계산기
         </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={activeTab === 'league'}
+          className={`nav-link ${activeTab === 'league' ? 'active' : ''}`}
+          onClick={() => onTabChange('league')}
+        >
+          리그전 시뮬레이션
+        </button>
       </nav>
     </header>
   )
