@@ -412,8 +412,19 @@ export function useLeagueSimulator() {
 
     const timeToKillEnemySec =
       myNetDpsOnEnemy > 0 ? enemyComputed.maxHP / myNetDpsOnEnemy : null
-    const timeToKillMeSec =
+    let timeToKillMeSec =
       enemyNetDpsOnMe > 0 ? meComputed.maxHP / enemyNetDpsOnMe : null
+
+    // 내가 원거리, 상대가 근거리인 경우: 상대가 접근하는 데 1.5초가 걸린다고 가정
+    // → 상대가 나를 실제로 때리기 시작하기까지 1.5초의 여유가 있으므로,
+    //   상대가 나를 잡는 시간에 1.5초를 추가로 더해 준다.
+    if (
+      me.weaponType === 'range' &&
+      enemy.weaponType === 'melee' &&
+      timeToKillMeSec != null
+    ) {
+      timeToKillMeSec += 1.5
+    }
 
     let winner: LeagueSimulationResult['winner'] = 'none'
     let winnerLabel = '입력 값을 더 채워주세요.'
