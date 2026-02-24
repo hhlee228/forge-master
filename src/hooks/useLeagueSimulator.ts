@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { formatTimeDuration, safeNumber } from '../utils'
+import { safeNumber } from '../utils'
 
 type SideId = 'me' | 'enemy'
 
@@ -459,7 +459,7 @@ function runTickBasedSimulation(
     if (deterministic) return false
     return Math.random() < doubleChance
   }
-  function dealBasicDamage(attacker: TickSideParams, defenderMaxHP: number, defenderBlock: number): number {
+  function dealBasicDamage(attacker: TickSideParams, defenderBlock: number): number {
     let dmg = attacker.baseDamage
     if (attacker === meP) dmg += meBuffDmg
     else dmg += enemyBuffDmg
@@ -530,7 +530,7 @@ function runTickBasedSimulation(
     let enemyDmgToMe = 0
 
     if (meNextBasic <= t && t < MATCH_DURATION_SEC) {
-      myDmgToEnemy += dealBasicDamage(meP, enemyMaxHP, enemyP.blockChance)
+      myDmgToEnemy += dealBasicDamage(meP, enemyP.blockChance)
       meNextBasic += myAttackInterval
     }
     meP.skills.forEach((sk, i) => {
@@ -551,7 +551,7 @@ function runTickBasedSimulation(
     })
 
     if (enemyNextBasic <= t && t < MATCH_DURATION_SEC) {
-      enemyDmgToMe += dealBasicDamage(enemyP, meMaxHP, meP.blockChance)
+      enemyDmgToMe += dealBasicDamage(enemyP, meP.blockChance)
       enemyNextBasic += enemyAttackInterval
     }
     enemyP.skills.forEach((sk, i) => {
@@ -600,54 +600,6 @@ function runTickBasedSimulation(
     enemyRemovedPercent,
     winner,
   }
-}
-
-/**
- * 60초 동안 스킬 데미지/회복 총량 계산.
- * - 리그전 시작 시 스킬은 바로 못 쓰고, 첫 쿨(풀 쿨)이 돌아야 첫 사용 가능.
- * - 첫 쿨은 "스킬 재사용 대기시간 감소" 영향을 안 받음.
- * - 첫 사용 이후부터는 감소 적용된 쿨로 재사용.
- */
-function getSkillDamageAndHealOver60(side: LeagueSideState): { skillDamageTotal: number; skillHealTotal: number } {
-  const matchDuration = MATCH_DURATION_SEC
-  const skillDamagePercent = safeNumber(side.skillDamagePercentInput)
-  const skillCooldownPercent = safeNumber(side.skillCooldownPercentInput)
-  const skillDamageMult = 1 + skillDamagePercent / 100
-
-  let skillDamageTotal = 0
-  let skillHealTotal = 0
-
-  for (const s of side.skills) {
-    if (!s.skillId) continue
-    const def = SKILL_MAP[s.skillId]
-    if (!def) continue
-
-    const baseCd = def.cooldownSec
-    const effectiveCd = getEffectiveCooldownAfterFirst(baseCd, skillCooldownPercent)
-    if (effectiveCd <= 0) continue
-
-    // 첫 사용: baseCd 초 후 가능. 이후 effectiveCd 간격으로 사용.
-    let numCasts = 0
-    if (baseCd <= matchDuration) {
-      numCasts = 1 + Math.floor((matchDuration - baseCd) / effectiveCd)
-    }
-
-    if (def.kind === 'damage') {
-      const power = safeNumber(s.powerInput)
-      if (power > 0) {
-        const hits = def.hitsPerCast ?? 1
-        skillDamageTotal += power * hits * skillDamageMult * numCasts
-      }
-    } else if (def.kind === 'heal') {
-      const power = safeNumber(s.powerInput)
-      if (power > 0) {
-        skillHealTotal += power * numCasts
-      }
-    }
-    // buff는 computeSide에서 평균 업타임으로 처리 (첫 쿨 풀 적용은 생략)
-  }
-
-  return { skillDamageTotal, skillHealTotal }
 }
 
 function computeSide(side: LeagueSideState): LeagueSideComputed {
