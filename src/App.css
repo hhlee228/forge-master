@@ -873,3 +873,61 @@
   margin: 0;
   color: #e5e7eb;
 }
+
+.league-batch-area {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.league-option-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.league-option-row input {
+  flex-shrink: 0;
+}
+
+.league-simulate-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.league-simulate-btn:hover {
+  background: #4f46e5;
+}
+
+.league-batch-result {
+  padding: 0.75rem;
+  background: rgba(55, 65, 81, 0.5);
+  border-radius: 0.375rem;
+  font-size: 0.85rem;
+}
+
+.league-batch-result h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.league-batch-result ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.league-batch-avg {
+  margin: 0.5rem 0 0;
+  color: #d1d5db;
+  line-height: 1.4;
+}

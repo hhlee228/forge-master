@@ -123,10 +123,37 @@ export function LeagueSection() {
           {league.result.summary && (
             <p className="league-times">{league.result.summary}</p>
           )}
+          <div className="league-batch-area">
+            <button
+              type="button"
+              className="league-simulate-btn"
+              disabled={league.isBatchRunning}
+              onClick={() => league.runBatchSimulation(1000)}
+            >
+              {league.isBatchRunning
+                ? '시뮬레이션 중… (1,000회)'
+                : '시뮬레이션 시작 (1,000회)'}
+            </button>
+            {league.batchResult && (
+              <div className="league-batch-result">
+                <h4>1,000회 시뮬레이션 결과</h4>
+                <ul>
+                  <li><strong>내 승리</strong>: {league.batchResult.meWins}회</li>
+                  <li><strong>상대 승리</strong>: {league.batchResult.enemyWins}회</li>
+                  <li><strong>무승부</strong>: {league.batchResult.draws}회</li>
+                </ul>
+                <p className="league-batch-avg">
+                  평균 — 60초 후 내 남은 체력: {formatNumber(Math.round(league.batchResult.avgMyHpAfter60))} · 상대 남은 체력: {formatNumber(Math.round(league.batchResult.avgEnemyHpAfter60))}
+                  <br />
+                  평균 깎은 비율 — 내가 상대: {league.batchResult.avgMyRemovedPercent.toFixed(2)}% · 상대가 내 체력: {league.batchResult.avgEnemyRemovedPercent.toFixed(2)}%
+                </p>
+              </div>
+            )}
+          </div>
           <p className="result-note">
-            ※ 스킬 피해%는 데미지 스킬에만, 스킬 재사용 대기시간%는 쿨감(양수 입력 시
-            더 자주 사용)으로 적용됩니다. 회복 스킬은 1회 발동 시 총 회복량을, 버프
-            스킬은 체력/피해 증가%를 입력해 주세요.
+            ※ 스킬은 리그전 시작 후 첫 쿨(풀 쿨)이 돌아야 첫 사용 가능하며, 첫 쿨은
+            재사용 대기시간 감소의 영향을 받지 않습니다. 이후부터 감소 적용. 회복 스킬은
+            1회 발동 시 총 회복량, 버프는 체력/피해 고정 수치를 입력해 주세요.
           </p>
         </div>
       </div>

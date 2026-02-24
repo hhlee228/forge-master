@@ -37,6 +37,15 @@ export function AppHeader({ activeTab, onTabChange }: AppHeaderProps) {
         <button
           type="button"
           role="tab"
+          aria-selected={activeTab === 'clanwar'}
+          className={`nav-link ${activeTab === 'clanwar' ? 'active' : ''}`}
+          onClick={() => onTabChange('clanwar')}
+        >
+          클랜전 점수 계산기
+        </button>
+        <button
+          type="button"
+          role="tab"
           aria-selected={activeTab === 'league'}
           className={`nav-link ${activeTab === 'league' ? 'active' : ''}`}
           onClick={() => onTabChange('league')}

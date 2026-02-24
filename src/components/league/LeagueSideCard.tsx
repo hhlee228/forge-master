@@ -117,18 +117,6 @@ export function LeagueSideCard({
           />
         </div>
         <div className="field">
-          <label>체력 %</label>
-          <input
-            type="text"
-            inputMode="decimal"
-            placeholder="예: 50"
-            value={state.maxHPPercentInput}
-            onChange={(e) =>
-              onFieldChange('maxHPPercentInput', e.target.value)
-            }
-          />
-        </div>
-        <div className="field">
           <label>생명력 흡수 %</label>
           <input
             type="text"
@@ -152,18 +140,6 @@ export function LeagueSideCard({
             value={state.doubleChancePercentInput}
             onChange={(e) =>
               onFieldChange('doubleChancePercentInput', e.target.value)
-            }
-          />
-        </div>
-        <div className="field">
-          <label>피해 % (공통)</label>
-          <input
-            type="text"
-            inputMode="decimal"
-            placeholder="예: 50"
-            value={state.damagePercentInput}
-            onChange={(e) =>
-              onFieldChange('damagePercentInput', e.target.value)
             }
           />
         </div>
@@ -219,11 +195,11 @@ export function LeagueSideCard({
           />
         </div>
         <div className="field">
-          <label>스킬 재사용 대기시간 %</label>
+          <label>스킬 재사용 대기시간 감소 %</label>
           <input
             type="text"
             inputMode="decimal"
-            placeholder="예: 30"
+            placeholder="예: 6.18 (게임에 -6.18%면 6.18 입력)"
             value={state.skillCooldownPercentInput}
             onChange={(e) =>
               onFieldChange('skillCooldownPercentInput', e.target.value)
@@ -275,7 +251,6 @@ export function LeagueSideCard({
             {isBuff && (
               <>
                 <div className="field">
-                  <label>버프 피해 증가 (고정 수치)</label>
                   <UnitInput
                     id={`${sideLabel}-skill-${index}-buff-dmg`}
                     label="버프 피해 증가 (고정 수치)"
@@ -288,7 +263,6 @@ export function LeagueSideCard({
                   />
                 </div>
                 <div className="field">
-                  <label>버프 체력 증가 (고정 수치)</label>
                   <UnitInput
                     id={`${sideLabel}-skill-${index}-buff-hp`}
                     label="버프 체력 증가 (고정 수치)"
